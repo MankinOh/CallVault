@@ -221,11 +221,13 @@ public class MainActivity extends Activity {
 
             // Tell React the exact nav bar height in px so it can size its own nav bar
             final int finalBottom = bottomInset;
+            final float density = v.getResources().getDisplayMetrics().density;
+            final int topDp = Math.round(topInset / density);
             if (webView != null) {
                 webView.post(() -> webView.evaluateJavascript(
-            "window.cvNavInset=" + finalBottom + ";" +
-            "window.cvTopPad=" + Math.round(finalTop / getResources().getDisplayMetrics().density) + ";" +
-            "window.dispatchEvent(new CustomEvent('callvault_nav_inset',{detail:{inset:" + finalBottom + ",top:" + finalTop + "}}));",
+                    "window.cvNavInset=" + finalBottom + ";" +
+                    "window.cvTopPad=" + topDp + ";" +
+                    "window.dispatchEvent(new CustomEvent('callvault_nav_inset',{detail:{inset:" + finalBottom + ",top:" + topDp + "}}));",
                     null
                 ));
             }
