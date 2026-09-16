@@ -223,8 +223,9 @@ public class MainActivity extends Activity {
             final int finalBottom = bottomInset;
             if (webView != null) {
                 webView.post(() -> webView.evaluateJavascript(
-                    "window.cvNavInset=" + finalBottom + ";" +
-                    "window.dispatchEvent(new CustomEvent('callvault_nav_inset',{detail:{inset:" + finalBottom + "}}));",
+            "window.cvNavInset=" + finalBottom + ";" +
+            "window.cvTopPad=" + Math.round(finalTop / getResources().getDisplayMetrics().density) + ";" +
+            "window.dispatchEvent(new CustomEvent('callvault_nav_inset',{detail:{inset:" + finalBottom + ",top:" + finalTop + "}}));",
                     null
                 ));
             }
